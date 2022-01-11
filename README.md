@@ -1,7 +1,7 @@
 # CurveTracer
 A digital curve tracer using Arduino with source code and binaries for Windows and Linux
 
-This repository is currently under construction  
+__<h2>This repository is currently under construction</h2>__  
 11-jan-2022
 
 Used tools:  
