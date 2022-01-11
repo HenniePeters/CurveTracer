@@ -1,12 +1,12 @@
 # CurveTracer
 A digital curve tracer using Arduino with source code and binaries for Windows and Linux
 
-This repository is currently under construction
+This repository is currently under construction  
 11-jan-2022
 
-Used tools:
-Borland C++Builder 6.0
-Code::Blocks 20.03
-Arduino IDE 1.8.11
-LTSpice 17.0.32
-Eagle 7.7
+Used tools:  
+&nbsp;&nbsp;&nbsp;&nbsp; Borland C++Builder 6.0  
+&nbsp;&nbsp;&nbsp;&nbsp; Code::Blocks 20.03  
+&nbsp;&nbsp;&nbsp;&nbsp; Arduino IDE 1.8.11  
+&nbsp;&nbsp;&nbsp;&nbsp; LTSpice 17.0.32  
+&nbsp;&nbsp;&nbsp;&nbsp; Eagle 7.7  
