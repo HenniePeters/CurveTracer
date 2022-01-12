@@ -250,9 +250,11 @@ void PaintGraphics::ShowSamples( struct f *fields ) {
     wxBrush_Samples.SetColour( 0, 0, 0 );
     canvas.SetPen( wxPen_Samples );
     canvas.SetBrush( wxBrush_Samples );
-    int a, b, c, d;
+    int a, b, c, d ,e ,f;
     a = map( fields->x[0], 0-fields->Vx, fields->Vx, iLeftEdge+2, iRightEdge-2 );
     b = map( fields->y[0], 0-fields->Vy, fields->Vy, iTopEdge+2, iBottomEdge-2 );
+    e = a;
+    f = b;
     stArea->ClearBackground();
     for( int i = 1; i < COORDS; i++ ) {
         c = map( fields->x[i], 0-fields->Vx, fields->Vx, iLeftEdge+2, iRightEdge-2 );
@@ -261,5 +263,6 @@ void PaintGraphics::ShowSamples( struct f *fields ) {
         a = c;
         b = d;
     }
+    DrawLine( &canvas, a, b, e, f );
 }
 
