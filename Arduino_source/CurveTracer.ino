@@ -1,6 +1,6 @@
 #include "CommunicationProtocol.h"
 
-#define DEBUGGING   1       // 0 for normal operation, set to 1 when debugging the arduino with no electronics connected (I used it to debug the PC software).
+#define DEBUGGING   0       // 0 for normal operation, set to 1 when debugging the arduino with no electronics connected (I used it to debug the PC software).
 #define COORDS      48      // number of measurements per period
 #define DELAY       420     // 420 microseconds (=20000us/COORDS) delay between measurements (assuming 50Hz net frequency) for 60 Hz use 347 microseconds (=16667us/COORDS)
 #define PIN_30V     A0      // PC0 ADC0 measure the baselineline for the sinusoidal wave.
@@ -52,14 +52,12 @@ void loop() {
         if( micros() < 0xFFFFFFFF - 21000 ) { // avoid overflow in uint32_t during measurements
 #if DEBUGGING == 1 //if( DEBUGGING ) { // this shows a straight line
             baseline = ( ADC_MAXVAL / 2 );
+            int sinusx[] = { 0, 1044, 2070, 3061, 4000, 4870, 5656, 6346, 6928, 7391, 7727, 7931, 7999, 7931, 7727, 7391, 6928, 6346, 5656, 4870, 3999, 3061, 2070, 1044, -1, -1045, -2071, -3062, -4001, -4871, -5657, -6347, -6929, -7392, -7728, -7932, -8000, -7932, -7728, -7391, -6929, -6347, -5657, -4871, -4000, -3062, -2071, -1045 };
+            int sinusy[] = { 7999, 7931, 7727, 7391, 6928, 6346, 5656, 4870, 3999, 3061, 2070, 1044, -1, -1045, -2071, -3062, -4001, -4871, -5657, -6347, -6929, -7392, -7728, -7932, -8000, -7932, -7728, -7391, -6929, -6347, -5657, -4871, -4000, -3062, -2071, -1045, 0, 1044, 2070, 3061, 4000, 4870, 5656, 6346, 6928, 7391, 7727, 7931 };
             for( int i = 0; i < 48; i++ ) {
-                fields.x[i] = ( ADC_MAXVAL / 2 );
-                fields.y[i] = ( ADC_MAXVAL / 2 );
+                fields.y[i] = sinusy[i];  
+                fields.x[i] = sinusx[i]; 
             }
-            fields.x[0] = ( ADC_MAXVAL / 2 ) - 150;
-            fields.y[0] = ( ADC_MAXVAL / 2 ) - 150;
-            fields.x[47] = ( ADC_MAXVAL / 2 ) + 150;
-            fields.y[47] = ( ADC_MAXVAL / 2 ) + 150;
 #else // } else {
             startpulse = false;
             while( startpulse == false );
@@ -74,13 +72,14 @@ void loop() {
                 // digitalWrite(10, HIGH); // To test with an oscilloscope whether the timing is within DELAY us
                 // digitalWrite(10, LOW);  // I used pin 10 of an Arduino Pro Mini during development
             }
-#endif // }         
             for( int i = 0; i < 48; i++ ) { // convert ADC readings to millivolts
                 //fields.x[i] = fields.Vx + convert( fields.x[i] ); // Add max. scale value fields.Vx because x[] is unsigned
                 //fields.y[i] = fields.Vy + convert( fields.y[i] ); // Add max. scale value fields.Vy because y[] is unsigned
                 fields.x[i] = convert( fields.x[i] );  
                 fields.y[i] = convert( fields.y[i] );  
             }
+#endif // }         
+           
             unsigned char buffer[sizeof( struct f )];
             memcpy( &buffer, &fields, sizeof( struct f ) );
             cp_out->pkg_clear();
@@ -89,7 +88,19 @@ void loop() {
                     break;
                 }
             }
-            cp_out->pkg_send();
+           cp_out->pkg_send();
+           /*
+           for( int i = 0; i < 48; i++ ) {
+                Serial.print( fields.x[i] );
+                Serial.print( " " );
+           }
+           Serial.println( " " );          
+           for( int i = 0; i < 48; i++ ) {
+                Serial.print( fields.y[i] );
+                Serial.print( " " );
+           }
+           Serial.println( " " );
+           */
         }
     }
 }
