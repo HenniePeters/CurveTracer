@@ -304,16 +304,19 @@ void PaintGraphics::ShowSamples( class f *fields ) {
     TCanvas *canvas = stArea->Canvas;
     canvas->Pen = Pen_Samples;
     canvas->Brush = Brush_Samples;
-    int a, b, c, d;
+    int a, b, c, d, e, f;
     a = 2+map( fields->x[0], 0-fields->Vx, fields->Vx, iLeftEdge+1, iRightEdge-1 );
+    e = a;
     b = 2+map( fields->y[0], 0-fields->Vx, fields->Vy, iTopEdge+1, iBottomEdge-1 );
+    f = b;
     for( int i = 1; i < COORDS; i++ ) {
-        c = 2+map( fields->x[i], 0-fields->Vx, fields->Vx, iLeftEdge+1, iRightEdge-1 );
-        d = 2+map( fields->y[i], 0-fields->Vy, fields->Vy, iTopEdge+3, iBottomEdge+1 );
+        c = map( fields->x[i], 0-fields->Vx, fields->Vx, iLeftEdge, iRightEdge );
+        d = map( fields->y[i], 0-fields->Vy, fields->Vy, iTopEdge, iBottomEdge );
         DrawLine( canvas, a, b, c, d );
         a = c;
         b = d;
     }
+    DrawLine( canvas, a, b, e, f );
 }
 //---------------------------------------------------------------------------
 void PaintGraphics::SampleColour( void ) {
