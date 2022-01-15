@@ -18,6 +18,7 @@ TfrmMain *frmMain;
 AppConfigData *AppConfig = new AppConfigData( "CurveTracer" );
 class f fields;
 static TPen *pen_backup;
+int iFullScaleX=1, iFullScaleY=1;
 unsigned char buffer[sizeof( class f )];
 class PaintGraphics *graph = NULL;
 int comport_nr = 0;
@@ -249,6 +250,16 @@ void __fastcall TfrmMain::Timer1Timer(TObject *Sender) {
                     Outdated( fields.coords );
                 }
                 if( fields.coords ) {
+                    if( iFullScaleX != fields.Vx / 1000 ) {
+                        iFullScaleX = fields.Vx / 1000;
+                        delete graph;
+                        graph = NULL;
+                    }
+                    if( iFullScaleY != fields.Vy / 1000 ) {
+                        iFullScaleY = fields.Vy / 1000;
+                        delete graph;
+                        graph = NULL;
+                    }
                     if( teller >= iPrintingInterval ) {
                         /*
                         Memo1->Clear();
@@ -310,14 +321,14 @@ void __fastcall TfrmMain::FormPaint(TObject *Sender) {
         graph->SetBox( 5, left_margin, right_margin, top_margin, bottom_margin );
         // set "Sine 2V"
         graph->SetVertUnit("V");
-        graph->SetSpacingVert(2);
-        graph->SetFactorMulVert(10);
-        graph->SetFactorDivVert(2);
+        graph->SetSpacingHori(iFullScaleX);
+        graph->SetFactorMulHori(iFullScaleX);
+        graph->SetFactorDivHori(iFullScaleX);
         // set "1 kHz (1 ms)"
         graph->SetHoriUnit("V");
-        graph->SetSpacingHori(2);
-        graph->SetFactorMulHori(10);
-        graph->SetFactorDivHori(2);
+        graph->SetSpacingVert(iFullScaleY);
+        graph->SetFactorMulVert(iFullScaleY);
+        graph->SetFactorDivVert(iFullScaleY);
     }
     graph->Clear();
     graph->ShowGrid();
