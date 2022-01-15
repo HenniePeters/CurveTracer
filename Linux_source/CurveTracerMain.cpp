@@ -33,7 +33,7 @@ struct f fields;
 unsigned char buffer[sizeof( struct f )];
 class PaintGraphics *graph = NULL;
 int iPrintingInterval = 50;
-int iLineSize = 2;
+int iFullScaleX=1, iFullScaleY=1, iLineSize = 2;
 
 //(*InternalHeaders(CurveTracerDialog)
 #include <wx/font.h>
@@ -503,115 +503,6 @@ void CurveTracerDialog::OnchkRulerVisibleClick(wxCommandEvent& event) {
     }
 }
 
-void CurveTracerDialog::OnPaint( wxPaintEvent & evt ) {
-    wxClientDC canvas( StaticText2 );
-    int left_margin=30, right_margin=1, top_margin=30, bottom_margin=1;
-    if( graph == NULL ) {
-        graph = new class PaintGraphics( StaticText2 );
-        graph->SetBox( 5, left_margin, right_margin, top_margin, bottom_margin );
-        graph->ChangeSamplesColour( btnEven->GetBackgroundColour(), btnOdd->GetBackgroundColour(), iLineSize );
-        // set "Sine 2V"
-        graph->SetSpacingHori(2);
-        graph->SetFactorMulHori(10);
-        graph->SetFactorDivHori(2);
-        graph->SetHoriUnit(" V");
-        // set "1 kHz (1 ms)"
-        graph->SetSpacingVert(2);
-        graph->SetFactorMulVert(10);
-        graph->SetFactorDivVert(2);
-        graph->SetVertUnit(" V");
-        wxString wxsTemp = AppConfig->Options["grid"];
-        graph->GridVisible =  (wxsTemp == _("true")) ? true: false;
-    }
-    graph->Clear();
-    graph->ShowGrid();
-    graph->ShowRulers();
-    if( bReady ) {
-        bReady = false;
-        graph->ShowSamples( &fields );
-    }
-
-}
-
-void CurveTracerDialog::ProgressIndicator( void ) {
-    if( lblProgress->GetLabel() == _(" /") ) {
-        lblProgress->SetLabel( _("\\") );
-    } else {
-        lblProgress->SetLabel( _(" /") );
-    }
-}
-
-CurveTracerDialog::~CurveTracerDialog() {
-    //(*Destroy(CurveTracerDialog)
-    //*)
-    RS232_CloseComport( comport_nr );
-    delete graph;
-}
-
-void CurveTracerDialog::OnQuit( wxCommandEvent& event ) {
-    Close();
-}
-
-#ifdef __GLIBC__
-#include <gnu/libc-version.h>
-#endif
-void CurveTracerDialog::OnAbout( wxCommandEvent& event ) {
-    wxString msg = wxbuildinfo( long_f );
-    msg << _( "\r\nGNU GCC version: " ) << __GNUC__ << "." << __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__;
-#ifdef __GLIBC__
-    msg << _( "\r\nGNU libc compile-time version: " ) << __GLIBC__ << "." << __GLIBC_MINOR__;
-    msg << _( "\r\nGNU libc runtime version: " ) << gnu_get_libc_version();
-#endif
-    msg << _( "\r\n\r\nProject:\t\t\thttps://github.com/HenniePeters/CurveTracer/\r\n\r\n" );
-    msg << _( "Developers:\r\n--------------------\r\n" );
-    msg << _( "Hennie Peters: \t\tC++ programming/hardware development\r\n" );
-    msg << _( "Marcel Sweers:\t\tHardware development\r\n" );
-    wxMessageBox( msg, _( "About CurveTracer" ) );
-}
-
-void CurveTracerDialog::OnTimer1Trigger( wxTimerEvent& event ) {
-    class communication_package *cp_in = new class communication_package;
-    static int teller;
-    static unsigned char buf[512];
-    uint16_t n;
-    if( comport_nr > 0 ) {
-        if( ( n = RS232_PollComport( comport_nr, buf, 512 ) ) > 0 ) {
-            for( uint16_t i = 0; i < n; i++ ) {
-                fifo.Put( buf[i] );
-            }
-        }
-        teller += Timer1.GetInterval();
-        n = fifo.Size();
-        while( n >= sizeof( struct f ) ) {
-            cp_in->pkg_clear();
-            if( ! cp_in->pkg_receive() ) { // wait until reception of full package
-                for( unsigned int i = 0; i < cp_in->len; i++ ) { // copy data to union package
-                    buffer[i] = cp_in->buf[i];
-                }
-                memcpy( ( void* )&fields, &buffer, sizeof( buffer ) );
-                if( fields.coords && fields.coords != COORDS ) {
-                    Outdated( fields.coords );
-                }
-               // for( int i=0; i<fields.coords; i++ ) {
-               //     fields.x[i] -= fields.Vx;
-               //     fields.y[i] -= fields.Vy;
-               // }
-                if( fields.coords ) {
-                    if( teller >= iPrintingInterval ) {
-                        teller = 0;
-                        bReady = true;
-                        //StaticText2->Refresh();  // force repaint
-                        //StaticText2->Update();
-                        Refresh();  // force repaint
-                        ProgressIndicator();
-                    }
-                }
-            }
-            n = fifo.Size();
-        }
-    }
-}
-
 void CurveTracerDialog::OngrpVoltageSelect(wxCommandEvent& event) {
     wxString wxsVoltage;
     wxsVoltage = event.GetString();
@@ -703,6 +594,42 @@ void CurveTracerDialog::OnbtnOddClick(wxCommandEvent& event) {
     }
 }
 
+void CurveTracerDialog::ProgressIndicator( void ) {
+    if( lblProgress->GetLabel() == _(" /") ) {
+        lblProgress->SetLabel( _("\\") );
+    } else {
+        lblProgress->SetLabel( _(" /") );
+    }
+}
+
+CurveTracerDialog::~CurveTracerDialog() {
+    //(*Destroy(CurveTracerDialog)
+    //*)
+    RS232_CloseComport( comport_nr );
+    delete graph;
+}
+
+void CurveTracerDialog::OnQuit( wxCommandEvent& event ) {
+    Close();
+}
+
+#ifdef __GLIBC__
+#include <gnu/libc-version.h>
+#endif
+void CurveTracerDialog::OnAbout( wxCommandEvent& event ) {
+    wxString msg = wxbuildinfo( long_f );
+    msg << _( "\r\nGNU GCC version: " ) << __GNUC__ << "." << __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__;
+#ifdef __GLIBC__
+    msg << _( "\r\nGNU libc compile-time version: " ) << __GLIBC__ << "." << __GLIBC_MINOR__;
+    msg << _( "\r\nGNU libc runtime version: " ) << gnu_get_libc_version();
+#endif
+    msg << _( "\r\n\r\nProject:\t\t\thttps://github.com/HenniePeters/CurveTracer/\r\n\r\n" );
+    msg << _( "Developers:\r\n--------------------\r\n" );
+    msg << _( "Hennie Peters: \t\tC++ programming/hardware development\r\n" );
+    msg << _( "Marcel Sweers:\t\tHardware development\r\n" );
+    wxMessageBox( msg, _( "About CurveTracer" ) );
+}
+
 void CurveTracerDialog::OnchkFatClick(wxCommandEvent& event) {
     iLineSize = 4;
     if( graph != NULL ) {
@@ -732,3 +659,86 @@ void CurveTracerDialog::OnchkThinClick(wxCommandEvent& event) {
     AppConfig->Options["linesize"] = _("1");
     AppConfig->Save();
 }
+
+void CurveTracerDialog::OnPaint( wxPaintEvent & evt ) {
+    wxClientDC canvas( StaticText2 );
+    int left_margin=30, right_margin=1, top_margin=30, bottom_margin=1;
+    if( graph == NULL ) {
+        graph = new class PaintGraphics( StaticText2 );
+        graph->SetBox( 5, left_margin, right_margin, top_margin, bottom_margin );
+        graph->ChangeSamplesColour( btnEven->GetBackgroundColour(), btnOdd->GetBackgroundColour(), iLineSize );
+        // set "Sine 2V"
+        graph->SetSpacingHori(iFullScaleX);
+        graph->SetFactorMulHori(iFullScaleX);
+        graph->SetFactorDivHori(iFullScaleX);
+        graph->SetHoriUnit(" V");
+        // set "1 kHz (1 ms)"
+        graph->SetSpacingVert(iFullScaleY);
+        graph->SetFactorMulVert(iFullScaleY);
+        graph->SetFactorDivVert(iFullScaleY);
+        graph->SetVertUnit(" V");
+        wxString wxsTemp = AppConfig->Options["grid"];
+        graph->GridVisible =  (wxsTemp == _("true")) ? true: false;
+    }
+    graph->Clear();
+    graph->ShowGrid();
+    graph->ShowRulers();
+    if( bReady ) {
+        bReady = false;
+        graph->ShowSamples( &fields );
+    }
+
+}
+
+void CurveTracerDialog::OnTimer1Trigger( wxTimerEvent& event ) {
+    class communication_package *cp_in = new class communication_package;
+    static int teller;
+    static unsigned char buf[512];
+    uint16_t n;
+    if( comport_nr > 0 ) {
+        if( ( n = RS232_PollComport( comport_nr, buf, 512 ) ) > 0 ) {
+            for( uint16_t i = 0; i < n; i++ ) {
+                fifo.Put( buf[i] );
+            }
+        }
+        teller += Timer1.GetInterval();
+        n = fifo.Size();
+        while( n >= sizeof( struct f ) ) {
+            cp_in->pkg_clear();
+            if( ! cp_in->pkg_receive() ) { // wait until reception of full package
+                for( unsigned int i = 0; i < cp_in->len; i++ ) { // copy data to union package
+                    buffer[i] = cp_in->buf[i];
+                }
+                memcpy( ( void* )&fields, &buffer, sizeof( buffer ) );
+                if( fields.coords && fields.coords != COORDS ) {
+                    Outdated( fields.coords );
+                }
+               // for( int i=0; i<fields.coords; i++ ) {
+               //     fields.x[i] -= fields.Vx;
+               //     fields.y[i] -= fields.Vy;
+               // }
+                if( fields.coords ) {
+                    if( iFullScaleX != fields.Vx / 1000 ) {
+                        iFullScaleX = fields.Vx / 1000;
+                        delete graph;
+                        graph = NULL;
+                    }
+                    if( iFullScaleY != fields.Vy / 1000 ) {
+                        iFullScaleY = fields.Vy / 1000;
+                        delete graph;
+                        graph = NULL;
+                    }
+                    if( teller >= iPrintingInterval ) {
+                        teller = 0;
+                        bReady = true;
+                        Refresh();  // force repaint
+                        ProgressIndicator();
+                    }
+                }
+            }
+            n = fifo.Size();
+        }
+    }
+}
+
+
