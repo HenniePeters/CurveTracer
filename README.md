@@ -10,3 +10,11 @@ Used tools:
 &nbsp;&nbsp;&nbsp;&nbsp; Arduino IDE 1.8.11  
 &nbsp;&nbsp;&nbsp;&nbsp; LTSpice 17.0.32  
 &nbsp;&nbsp;&nbsp;&nbsp; Eagle 7.7  
+  
+  
+15-jan-2022  
+  
+A working prototype (Mk1):  
+<img src="https://github.com/HenniePeters/CurveTracer/blob/main/Mk1/prototype.jpeg?raw=true"/>  
+  
+<img src="https://github.com/HenniePeters/CurveTracer/blob/main/Mk1/screenshot.png?raw=true"/>
