@@ -26,7 +26,7 @@ I am working on the STM32 version. The PC software and source for Linux are avai
 I've changed the number of samples from 48 to 50. This rounds to a better number for the delay in microseconds.
 I'am currently trying to find a way to publish the source for STM32Cube. The project is 37Mb in size. Not a good idea to post that on github entirely. Any ideas are welcome.  
 
-The circuit connects to a clone of a nucleo board. Pin numbers are available in the schematic.
+The circuit connects to a clone of a nucleo board. Pin names are available in the schematic.
 
 <img src="https://github.com/HenniePeters/CurveTracer/blob/main/MK2/STM32F072RBT6.png?raw=true"/>  
   
