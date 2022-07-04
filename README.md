@@ -28,6 +28,6 @@ I'am currently trying to find a way to publish the source for STM32Cube. The pro
 
 The circuit connects to a clone of a nucleo board. Pin numbers are available in the schematic.
 
-<img src="https://github.com/HenniePeters/CurveTracer/blob/main/Mk2/STM32F072RBT6.png?raw=true"/>  
+<img src="https://github.com/HenniePeters/CurveTracer/blob/main/MK2/STM32F072RBT6.png?raw=true"/>  
   
-<img src="https://github.com/HenniePeters/CurveTracer/blob/main/Mk2/Schematic-MK2.png?raw=true"/>  
+<img src="https://github.com/HenniePeters/CurveTracer/blob/main/MK2/Schematic-MK2.png?raw=true"/>  
