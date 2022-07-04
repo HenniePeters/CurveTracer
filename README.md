@@ -1,9 +1,9 @@
-# CurveTracer
-A digital curve tracer using Arduino, with source code and binaries for Windows and Linux
-
+# CurveTracer  
+A digital curve tracer using Arduino, with source code and binaries for Windows and Linux  
+  
 __<h2>This repository is currently under construction</h2>__  
-11-jan-2022
-
+11-jan-2022  
+  
 Used tools:  
 &nbsp;&nbsp;&nbsp;&nbsp; Borland C++Builder 6.0  (Windows)  
 &nbsp;&nbsp;&nbsp;&nbsp; Code::Blocks 20.03  (Linux)  
@@ -17,4 +17,14 @@ Used tools:
 A working prototype (Mk1):  
 <img src="https://github.com/HenniePeters/CurveTracer/blob/main/Mk1/prototype.jpeg?raw=true"/>  
   
-<img src="https://github.com/HenniePeters/CurveTracer/blob/main/Mk1/screenshot.png?raw=true"/>
+<img src="https://github.com/HenniePeters/CurveTracer/blob/main/Mk1/screenshot.png?raw=true"/>  
+  
+  
+4-jul-2022  
+  
+I am working on the STM32 version. The PC software for Linux is available in the MK2 directory.  
+I've changed the number of samples from 48 to 50. This rounds to a better number for the delay in microseconds.  
+
+
+
+
