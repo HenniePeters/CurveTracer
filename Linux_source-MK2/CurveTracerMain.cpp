@@ -233,14 +233,13 @@ CurveTracerDialog::CurveTracerDialog( wxWindow* parent, wxWindowID id ) {
     BoxSizer12 = new wxBoxSizer(wxVERTICAL);
     StaticText5 = new wxStaticText(this, ID_STATICTEXT7, _("Frequency:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT7"));
     BoxSizer12->Add(StaticText5, 0, wxTOP|wxLEFT|wxEXPAND, 5);
-    wxString __wxRadioBoxChoices_2[4] =
+    wxString __wxRadioBoxChoices_2[3] =
     {
     	_("50 Hz (20 ms)"),
     	_("200 Hz (5 ms)"),
-    	_("1 kHz (1 ms)"),
-    	_("2kHz (0.5 ms)")
+    	_("1 kHz (1 ms)")
     };
-    grpFrequency = new wxRadioBox(this, ID_RADIOBOX1, wxEmptyString, wxDefaultPosition, wxDefaultSize, 4, __wxRadioBoxChoices_2, 2, wxRA_SPECIFY_COLS|wxRA_HORIZONTAL|wxRA_SPECIFY_ROWS|wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
+    grpFrequency = new wxRadioBox(this, ID_RADIOBOX1, wxEmptyString, wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_2, 2, wxRA_SPECIFY_COLS|wxRA_HORIZONTAL|wxRA_SPECIFY_ROWS|wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer12->Add(grpFrequency, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND, 5);
     BoxSizer7->Add(BoxSizer12, 0, wxTOP|wxEXPAND, 15);
     BoxSizer14 = new wxBoxSizer(wxVERTICAL);
@@ -819,6 +818,7 @@ void CurveTracerDialog::OngrpFrequencySelect( wxCommandEvent& event ) {
         freq = 2000;
     }
     if( comport_nr > 0 ) {
+        pkg_out.pkg_clear();
         pkg_out.pkg_add_uint16( freq );
         pkg_out.pkg_send();
     } else {

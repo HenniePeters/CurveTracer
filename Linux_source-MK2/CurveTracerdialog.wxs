@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxDialog" name="CurveTracerDialog">
+		<title>CurveTracer</title>
+		<size>1000,700</size>
+		<id_arg>0</id_arg>
+		<object class="wxBoxSizer" variable="BoxSizer1" member="yes">
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="BoxSizer3" member="no">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer4" member="no">
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
+									<label></label>
+									<size>750,750</size>
+								</object>
+								<flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<option>1</option>
+							</object>
+						</object>
+						<flag>wxBOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_TOP|wxFIXED_MINSIZE</flag>
+			</object>
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="BoxSizer5" member="no">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer8" member="no">
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer2" member="no">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON1" variable="btnAbout" member="yes">
+											<label>About</label>
+											<size>100,34</size>
+											<handler function="OnAbout" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>4</border>
+										<option>1</option>
+									</object>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON2" variable="btnQuit" member="yes">
+											<label>Quit</label>
+											<size>100,34</size>
+											<handler function="OnQuit" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>4</border>
+										<option>1</option>
+									</object>
+								</object>
+								<flag>wxALIGN_LEFT</flag>
+								<border>4</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT3" variable="lblProgress" member="yes">
+									<label>/</label>
+									<size>189,31</size>
+									<font>
+										<size>10</size>
+										<style>normal</style>
+										<weight>bold</weight>
+										<underlined>0</underlined>
+										<family>swiss</family>
+										<face>DejaVu Sans</face>
+									</font>
+									<style>wxALIGN_CENTRE</style>
+								</object>
+								<flag>wxALL|wxEXPAND|wxSHAPED</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer6" member="no">
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxStaticLine" name="ID_STATICLINE1" variable="StaticLine1" member="yes">
+									<size>10,-1</size>
+									<fg>wxSYS_COLOUR_GRAYTEXT</fg>
+								</object>
+								<flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+								<border>1</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText1" member="yes">
+									<label>Serial port:</label>
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxComboBox" name="ID_COMBOBOX1" variable="cboPort" member="yes">
+									<size>155,34</size>
+									<handler function="OncboPortTextUpdated" entry="EVT_TEXT" />
+								</object>
+								<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer9" member="no">
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON4" variable="btnConnect" member="yes">
+											<label>Connect</label>
+											<size>108,32</size>
+											<handler function="OnbtnConnectClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+										<option>1</option>
+									</object>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON5" variable="btnDisconnect" member="yes">
+											<label>Disconnect</label>
+											<handler function="OnbtnDisconnectClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+										<option>1</option>
+									</object>
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxTOP|wxEXPAND</flag>
+						<border>15</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer7" member="no">
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer10" member="no">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<object class="wxStaticLine" name="ID_STATICLINE3" variable="StaticLine3" member="yes">
+											<size>10,-1</size>
+											<fg>wxSYS_COLOUR_GRAYTEXT</fg>
+										</object>
+										<flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+										<border>1</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxBoxSizer" variable="BoxSizer13" member="no">
+											<object class="sizeritem">
+												<object class="wxCheckBox" name="ID_CHECKBOX1" variable="chkGridVisible" member="yes">
+													<label>Show grid</label>
+													<handler function="OnchkGridVisibleClick" entry="EVT_CHECKBOX" />
+												</object>
+												<flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+												<border>5</border>
+											</object>
+											<object class="sizeritem">
+												<object class="wxCheckBox" name="ID_CHECKBOX2" variable="chkRulerVisible" member="yes">
+													<label>Show ruler</label>
+													<enabled>0</enabled>
+													<handler function="OnchkRulerVisibleClick" entry="EVT_CHECKBOX" />
+												</object>
+												<flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+												<border>5</border>
+											</object>
+										</object>
+										<flag>wxTOP|wxEXPAND</flag>
+										<border>10</border>
+									</object>
+								</object>
+								<flag>wxTOP|wxEXPAND</flag>
+								<border>20</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer11" member="no">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<object class="wxStaticLine" name="ID_STATICLINE2" variable="StaticLine2" member="yes">
+											<size>10,-1</size>
+											<fg>wxSYS_COLOUR_GRAYTEXT</fg>
+										</object>
+										<flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+										<border>1</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText4" member="yes">
+											<label>Measuring voltage:</label>
+											<hidden>1</hidden>
+										</object>
+										<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND</flag>
+										<border>5</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxRadioBox" name="ID_RADIOBOX2" variable="grpVoltage" member="yes">
+											<label></label>
+											<content>
+												<item>Sine 2V</item>
+												<item>Sine 12V</item>
+											</content>
+											<default>-1</default>
+											<hidden>1</hidden>
+											<style>wxRA_HORIZONTAL</style>
+											<handler function="OngrpVoltageSelect" entry="EVT_RADIOBOX" />
+										</object>
+										<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND</flag>
+										<border>5</border>
+									</object>
+								</object>
+								<flag>wxTOP|wxEXPAND</flag>
+								<border>15</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer12" member="no">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<object class="wxStaticText" name="ID_STATICTEXT7" variable="StaticText5" member="yes">
+											<label>Frequency:</label>
+										</object>
+										<flag>wxTOP|wxLEFT|wxEXPAND</flag>
+										<border>5</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxRadioBox" name="ID_RADIOBOX1" variable="grpFrequency" member="yes">
+											<label></label>
+											<content>
+												<item>50 Hz (20 ms)</item>
+												<item>200 Hz (5 ms)</item>
+												<item>1 kHz (1 ms)</item>
+											</content>
+											<default>-1</default>
+											<dimension>2</dimension>
+											<style>wxRA_SPECIFY_COLS|wxRA_HORIZONTAL|wxRA_SPECIFY_ROWS|wxRA_VERTICAL</style>
+											<handler function="OngrpFrequencySelect" entry="EVT_RADIOBOX" />
+										</object>
+										<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND</flag>
+										<border>5</border>
+									</object>
+								</object>
+								<flag>wxTOP|wxEXPAND</flag>
+								<border>15</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer14" member="no">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<object class="wxStaticText" name="ID_STATICTEXT5" variable="wxUpdateInterval" member="yes">
+											<label>Update interval: 250 ms</label>
+											<size>231,20</size>
+										</object>
+										<flag>wxTOP|wxLEFT|wxEXPAND</flag>
+										<border>5</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxSlider" name="ID_SLIDER1" variable="Slider1" member="yes">
+											<value>1</value>
+											<min>1</min>
+											<max>20</max>
+											<size>236,31</size>
+											<handler function="OnSlider1CmdScrollThumbTrack" entry="EVT_COMMAND_SCROLL_THUMBTRACK" />
+											<handler function="OnSlider1CmdScrollChanged" entry="EVT_COMMAND_SCROLL_CHANGED" />
+										</object>
+										<flag>wxEXPAND</flag>
+										<border>5</border>
+										<option>1</option>
+									</object>
+									<object class="sizeritem">
+										<object class="wxStaticLine" name="ID_STATICLINE4" variable="StaticLine4" member="yes">
+											<size>10,-1</size>
+										</object>
+										<flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+										<border>1</border>
+									</object>
+								</object>
+								<flag>wxTOP|wxEXPAND</flag>
+								<border>15</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer15" member="no">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText3" member="yes">
+											<label>Samples colour:</label>
+											<size>299,17</size>
+										</object>
+										<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND</flag>
+										<border>5</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxBoxSizer" variable="BoxSizer16" member="no">
+											<object class="sizeritem">
+												<object class="wxBoxSizer" variable="BoxSizerEven" member="no">
+													<orient>wxVERTICAL</orient>
+													<object class="sizeritem">
+														<object class="wxBitmapButton" name="ID_BITMAPBTN_EVEN" variable="btnEven" member="yes">
+															<handler function="OnbtnEvenClick" entry="EVT_BUTTON" />
+														</object>
+														<flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+														<border>3</border>
+													</object>
+													<object class="sizeritem">
+														<object class="wxStaticText" name="ID_STATICTEXT9" variable="StaticText6" member="yes">
+															<label>Even</label>
+															<size>34,17</size>
+														</object>
+														<flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+														<border>15</border>
+														<option>1</option>
+													</object>
+												</object>
+												<flag>wxALIGN_LEFT</flag>
+												<option>1</option>
+											</object>
+											<object class="sizeritem">
+												<object class="wxBoxSizer" variable="BoxSizerOdd" member="no">
+													<orient>wxVERTICAL</orient>
+													<object class="sizeritem">
+														<object class="wxBitmapButton" name="ID_BITMAPBTN_ODD" variable="btnOdd" member="yes">
+															<handler function="OnbtnOddClick" entry="EVT_BUTTON" />
+														</object>
+														<flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+														<border>3</border>
+													</object>
+													<object class="sizeritem">
+														<object class="wxStaticText" name="ID_STATICTEXT10" variable="StaticText7" member="yes">
+															<label>Odd</label>
+															<size>31,17</size>
+														</object>
+														<flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+														<border>15</border>
+														<option>1</option>
+													</object>
+												</object>
+												<flag>wxALIGN_LEFT</flag>
+												<option>1</option>
+											</object>
+											<object class="sizeritem">
+												<object class="wxBoxSizer" variable="BoxSizerStore" member="no">
+													<orient>wxVERTICAL</orient>
+													<object class="sizeritem">
+														<object class="wxBitmapButton" name="ID_BITMAPBTN_STORE" variable="btnHeld" member="yes">
+															<handler function="OnbtnHeldClick" entry="EVT_BUTTON" />
+														</object>
+														<flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxSHAPED</flag>
+														<border>3</border>
+													</object>
+													<object class="sizeritem">
+														<object class="wxStaticText" name="ID_STATICTEXT12" variable="StaticText9" member="yes">
+															<label>Stored</label>
+														</object>
+														<flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+														<border>15</border>
+														<option>1</option>
+													</object>
+												</object>
+												<flag>wxALIGN_LEFT</flag>
+												<option>1</option>
+											</object>
+										</object>
+										<flag>wxEXPAND</flag>
+										<border>5</border>
+									</object>
+								</object>
+								<flag>wxTOP|wxEXPAND</flag>
+								<border>15</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer17" member="no">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<object class="wxStaticLine" name="ID_STATICLINE5" variable="StaticLine5" member="yes">
+											<size>10,-1</size>
+										</object>
+										<flag>wxBOTTOM|wxEXPAND</flag>
+										<border>15</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxStaticText" name="ID_STATICTEXT11" variable="StaticText8" member="yes">
+											<label>Line size:</label>
+										</object>
+										<flag>wxALL|wxALIGN_LEFT</flag>
+										<border>5</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxBoxSizer" variable="BoxSizer18" member="no">
+											<object class="sizeritem">
+												<object class="wxRadioButton" name="ID_RADIOBUTTON2" variable="optFat" member="yes">
+													<label>Fat</label>
+													<handler function="OnchkFatClick" entry="EVT_RADIOBUTTON" />
+												</object>
+												<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND</flag>
+												<border>5</border>
+											</object>
+											<object class="sizeritem">
+												<object class="wxRadioButton" name="ID_RADIOBUTTON1" variable="optThick" member="yes">
+													<label>Thick</label>
+													<selected>1</selected>
+													<handler function="OnchkThickClick" entry="EVT_RADIOBUTTON" />
+												</object>
+												<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND</flag>
+												<border>5</border>
+											</object>
+											<object class="sizeritem">
+												<object class="wxRadioButton" name="ID_RADIOBUTTON3" variable="optThin" member="yes">
+													<label>Thin</label>
+													<handler function="OnchkThinClick" entry="EVT_RADIOBUTTON" />
+												</object>
+												<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND</flag>
+												<border>5</border>
+											</object>
+										</object>
+										<flag>wxEXPAND</flag>
+										<border>5</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxStaticLine" name="ID_STATICLINE6" variable="StaticLine6" member="yes">
+											<size>10,-1</size>
+										</object>
+										<flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+										<border>1</border>
+									</object>
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>15</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer19" member="no">
+									<object class="sizeritem">
+										<object class="wxToggleButton" name="ID_TOGGLEBUTTON1" variable="btnToggleHold" member="yes">
+											<label>Hold sample</label>
+											<handler function="OnbtnToggleHoldToggle" entry="EVT_TOGGLEBUTTON" />
+										</object>
+										<flag>wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+										<option>1</option>
+									</object>
+								</object>
+								<flag>wxTOP</flag>
+								<border>15</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT1" variable="lblDebug" member="yes">
+									<label></label>
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+				</object>
+				<flag>wxALL|wxEXPAND</flag>
+				<border>5</border>
+			</object>
+		</object>
+		<object class="wxTimer" name="ID_TIMER1" variable="Timer1" member="yes">
+			<interval>50</interval>
+			<handler function="OnTimer1Trigger" entry="EVT_TIMER" />
+		</object>
+		<object class="wxColourDialog" variable="ColourDialog1" member="yes" />
+	</object>
+</wxsmith>

@@ -11,7 +11,7 @@
 #ifndef CommunicationProtocolH
 #define CommunicationProtocolH
 
-#define BUFMAX          256
+#define BUFMAX          512
 #define HEADER_BYTE1    0x55 // Bin:01010101  Dec:85  'U'
 #define HEADER_BYTE2    0x33 // Bin:00110011  Dec:51  '3'
 
